@@ -237,17 +237,81 @@ public class ProjectSQLDatabase{
    
    }
 
+   //Zaher
+   public int addAbstract(int abstract_id, int faculty_id, String name, String summary){
+      int rows = 0;
+      try {
+         String sql = "INSERT INTO Abstract VALUES (?, ?, ?, ?)";
 
-   
-   
-   //Zaher
-   public int delete(){
-      return 3;
-   }
-   //Zaher
-   public int add(){
-      return 3;
+         PreparedStatement stmt = conn.prepareStatement(sql);
+         stmt.setInt(1, abstract_id);
+         stmt.setInt(2, faculty_id);
+         stmt.setString(3, name);
+         stmt.setString(4, summary);
+         System.out.println("Command to be executed: " + stmt);
+         rows = stmt.executeUpdate();
+         System.out.println("-----INSERT finished-----");
+      }
+       catch(SQLException sqle){
+         System.out.println("SQL ERROR");
+         System.out.println("INSERT FAILED!!!!");
+         System.out.println("ERROR MESSAGE IS -> "+sqle);\
+         sqle.printStackTrace();
+         return(0);
+      }
+      catch(Exception e) {
+         System.out.println("Error occured in addAbstract method");
+         System.out.println("ERROR MESSAGE is -> "+e);
+         e.printStackTrace();
+         return(0);
+      }
+      return (rows);
    } // End of getResultSet
+
+   //Zaher
+   public int addSkills(int faculty_id, int skill_id) {
+      int rows = 0;
+      try {
+         sql = "INSERT INTO faculty_skills VALUES (?,?)";
+         PreparedStatement stmt = conn.prepareStatement(sql);
+         stmt.setInt(1, faculty_id);
+         stmt.setInt(2, skill_id);
+         System.out.println("Command to be executed: " + stmt);
+         rows = stmt.executeUpdate();
+         System.out.println("-----INSERT finished-----");
+      }
+      catch(SQLException sqle){
+         System.out.println("SQL ERROR");
+         System.out.println("INSERT FAILED!!!!");
+         System.out.println("ERROR MESSAGE IS -> "+sqle);\
+         sqle.printStackTrace();
+         return(0);
+      }
+      catch(Exception e) {
+         System.out.println("Error occured in addSkills method");
+         System.out.println("ERROR MESSAGE is -> "+e);
+         e.printStackTrace();
+         return(0);
+      }
+      return (rows);
+   }
+
+   //Zaher
+   public int deleteAbstract(int abstract_id){
+      int result = 0;
+      try {
+         sql = "DELETE FROM Abstract WHERE abstract_id=?";
+         
+         PreparedStatement ps = conn.prepareStatement(sql);
+         ps.setInt(1, abstract_id);
+         
+         result = ps.executeUpdate();
+         return (result);
+      }
+      catch (SQLException se) {
+         return 3;
+      }
+   }
    
    
    
