@@ -102,7 +102,7 @@ public class projectSQLDatabase{
          ps.setInt(3, id);
          returnInt = ps.executeUpdate();
       }catch(Exception e){
-         System.out.println("Update Student Failed: "+e);
+         System.out.println("Update Abstract Failed: "+e);
       }
       return returnInt;
    }// end of method to update abstract
