@@ -88,58 +88,49 @@ create table Student_Skill(
 
 
 
-insert Faculty values(1,"John","David","dj@rit.edu","Gold","dj");
-insert Faculty values(2,"Molly","Bonnie","mb@rit.edu","gol-234","password");
-insert Faculty_Password values(1,'dj');
-insert Faculty_Password values(2,'password');
+INSERT Faculty VALUES(1,"John","David","dj@rit.edu","Gold","dj");
+INSERT Faculty VALUES(2,"Molly","Bonnie","mb@rit.edu","gol-234","password");
+INSERT Faculty_Password VALUES(1,'dj');
+INSERT Faculty_Password VALUES(2,'password');
 
 
-insert Skill values(1,"php");
-insert Skill values(1,"java");
-insert Skill values(1,"python");
+INSERT Skill VALUES(1,"php");
+INSERT Skill VALUES(1,"java");
+INSERT Skill VALUES(1,"python");
 
-insert Skill values(2,"html");
-insert Skill values(2,"css");
-insert Skill values(2,"ruby");
+INSERT Skill VALUES(2,"html");
+INSERT Skill VALUES(2,"css");
+INSERT Skill VALUES(2,"ruby");
 
-insert faculty_skill values(1,1);
-insert faculty_skill values(2,2);
+INSERT faculty_skill VALUES(1,1);
+INSERT faculty_skill VALUES(2,2);
 
- insert abstract values(1,1,"Python is cool","A summary of python being very cool.");
- insert abstract values(2,2,"Java is super fun!","Java can be very complex, but what if I say theres any easier way to learn?");
+ INSERT abstract VALUES(1,1,"Python is cool","A summary of python being very cool.");
+ INSERT abstract VALUES(2,2,"Java is super fun!","Java can be very complex, but what if I say theres any easier way to learn?");
  
- insert abstract_skill values(1,1);
- insert abstract_skill values(2,2);
+ INSERT abstract_skill VALUES(1,1);
+ INSERT abstract_skill values(2,2);
  
-insert Student(lastName,firstName, email) values("Johnson","Jamal","jj@rit.edu");
-insert Student(lastName,firstName, email) values("Morales","Miles","mm@rit.edu");
+INSERT Student(lastName,firstName, email) VALUES("Johnson","Jamal","jj@rit.edu");
+INSERT Student(lastName,firstName, email) VALUES("Morales","Miles","mm@rit.edu");
 
-insert Student_Password values(10000,"ILovemyMom123");
-insert Student_Password values(10001,"Spiderman12");
+INSERT Student_Password VALUES(10000,"ILovemyMom123");
+INSERT Student_Password VALUES(10001,"Spiderman12");
 
-insert Skill values(10000,"php");
-insert Skill values(10000,"java");
-insert Skill values(10000,"python");
+INSERT Skill VALUES(10000,"php");
+INSERT Skill VALUES(10000,"java");
+INSERT Skill VALUES(10000,"python");
 
-insert Skill values(10001,"bash");
-insert Skill values(10001,"css");
-insert Skill values(10001,"C++");
+INSERT Skill VALUES(10001,"bash");
+INSERT Skill VALUES(10001,"css");
+INSERT Skill VALUES(10001,"C++");
 
-insert Student_Skill values(10000,10000);
-insert Student_Skill values(10000,10001);
+INSERT Student_Skill VALUES(10000,10000);
+INSERT Student_Skill VALUES(10000,10001);
 
-select * from Skill;
-
-
-select Faculty.firstName, Skill.skill_name from Skill
-inner join Faculty_Skill on Faculty_Skill.skill_id = Skill.skill_id
-inner join Faculty on Faculty_Skill.faculty_id = Faculty.faculty_id;
+SELECT * FROM Skill;
 
 
-
-
-
-
-
-
-
+SELECT Faculty.firstName, Skill.skill_name FROM Skill
+INNER JOIN Faculty_Skill ON Faculty_Skill.skill_id = Skill.skill_id
+INNER JOIN Faculty ON Faculty_Skill.faculty_id = Faculty.faculty_id;
