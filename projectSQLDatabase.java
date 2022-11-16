@@ -1,6 +1,6 @@
 import java.sql.*;
 
-public class projectSQLDatabase{
+public class ProjectSQLDatabase{
    private Connection conn;
    private ResultSet rs;
    private Statement stmt;
