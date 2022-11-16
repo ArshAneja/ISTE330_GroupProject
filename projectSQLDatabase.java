@@ -46,6 +46,69 @@ public class projectSQLDatabase{
    public int search(){
       return 3;
    }
+   
+   
+   
+   //Arsh -- Student's can search based on the faculty's id
+   public void searchFacultySkills(int id){
+      try {
+         PreparedStatement stmt2;
+      
+         stmt2 = conn.prepareStatement("SELECT Faculty.firstName, group_concat(Skill.skill_name separator' | ') AS 'Skill' From Skill inner join Faculty_Skill on Faculty_Skill.skill_id = Skill.skill_id inner join Faculty on Faculty_Skill.faculty_id = Faculty.faculty_id where Faculty.faculty_id = (?);");
+         stmt2.setInt(1,id);
+      
+         ResultSet info = stmt2.executeQuery();
+         while(info.next()) {
+         
+         // 6) Retrieve resultset data
+         
+            String name = info.getString(1);
+            String skill = info.getString(2);
+           
+            System.out.print("\nNAME\t\t\tSKILLS" );
+            System.out.print("\n"+name+"\t\t\t" + skill+ "\n");
+         
+         }//end of while loop
+      
+      }// end of try
+      catch(SQLException sqle)
+      {
+         System.out.println("Error message is --> "+sqle+"\n");
+         sqle.printStackTrace();
+      }//end of catch
+
+   }
+   
+   //Arsh -- Student's can see professor's names and see their id's so they can search.
+    public void seeFaculty(){
+      try {
+         PreparedStatement stmt2;
+         stmt2 = conn.prepareStatement("select faculty_id,firstName,lastName from faculty;");
+         ResultSet info = stmt2.executeQuery();
+         while(info.next()) {
+         
+         // 6) Retrieve resultset data
+         
+            String id = info.getString(1);
+            String fname = info.getString(2);
+            String lname = info.getString(3);
+           
+            System.out.print("ID: "+ id + "\t\t" + fname + " " + lname+ "\n");
+         
+         }//end of while loop
+      
+      }// end of try
+      catch(SQLException sqle)
+      {
+         System.out.println("Error message is --> "+sqle+"\n");
+         sqle.printStackTrace();
+      }//end of catch
+
+   }
+
+
+   
+   
    //Zaher
    public int delete(){
       return 3;
@@ -53,7 +116,7 @@ public class projectSQLDatabase{
    //Zaher
    public int add(){
       return 3;
-         } // End of getResultSet
+   } // End of getResultSet
    
    //Josh
    public int updateFaculty(String fName, String lName, String email, String officeNum, int id) {
