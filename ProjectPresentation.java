@@ -23,7 +23,7 @@ public class ProjectPresentation {
              //JTextField tfPassword = new JTextField("");
       JTextField tfPassword = new JPasswordField("");
       JLabel lblDatabase    = new JLabel("Database ->");
-      JTextField tfDatabase = new JTextField("");
+      JTextField tfDatabase = new JTextField("academicSkills");
      
       Inputbox.add(lblUser);
       Inputbox.add(tfUser);
@@ -49,7 +49,7 @@ public class ProjectPresentation {
      
       String userName = tfUser.getText();
       String database = tfDatabase.getText();  
-
+   
           
           
       String password = new String();
@@ -69,12 +69,56 @@ public class ProjectPresentation {
       dl.connect(userName,password,database);  //Call DataLayer
       System.out.println("You have connected to the database!");
       String fs = ""; //faculty or student checker
-      System.out.println("Are you a (f)aculty or (s)tudent?");
+      String emailCheck = ""; // Email checker
+      String passwordCheck = ""; //Password checker
+      String Faculty = "Faculty"; //Used for database.
+      String Student = "Student"; // Used for database.
+      System.out.print("Are you a (f)aculty or (s)tudent? (f or s) ");
       fs = GetInput.readLine();
-      if(fs.equals("y")){
+      
+      
+      
+      
+      //Faculty
+      if(fs.equals("f")){
+         //Gets login credentials
+         System.out.print("Please enter your email: ");
+         emailCheck = GetInput.readLine();
+         System.out.print("Please enter your password: ");
+         passwordCheck = GetInput.readLine();
          
+         //Checks database and login in.
+         if (passwordCheck.equals(dl.FacultyLogin(emailCheck))){
+            
+            System.out.print("\nHello, "+ dl.FacultyName(emailCheck));
+         }
+         else{
+            System.out.print("\nSomething went wrong, try again!");
+         }
       }
-
+      
+      
+      
+      
+      
+      
+      //Student
+      if(fs.equals("s")){
+         //Gets login credentials
+         System.out.print("Please enter your email: ");
+         emailCheck = GetInput.readLine();
+         System.out.print("Please enter your password: ");
+         passwordCheck = GetInput.readLine();
+         
+         //Checks database and login in.
+         if (passwordCheck.equals(dl.StudentLogin(emailCheck))){
+            System.out.print("\nHello, "+ dl.StudentName(emailCheck));
+         }
+         else{
+            System.out.print("\nSomething went wrong, try again!");
+         }
+      }
+      
       
       
       
@@ -92,7 +136,7 @@ public class ProjectPresentation {
 
    public static void main(String [] args){
          
-
+   
       java.util.Date today = new java.util.Date();
       System.out.println("Program ran @ " + today + "\nProject \n");
    
