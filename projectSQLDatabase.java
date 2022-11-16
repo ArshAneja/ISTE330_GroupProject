@@ -40,6 +40,137 @@ public class projectSQLDatabase{
    
       return (conn!=null);
    } // End of connect method
+   
+   
+   // Arsh --  Faculty login
+   public String FacultyLogin(String email){
+      String password = "";
+      try {
+         PreparedStatement stmt2;
+      
+         stmt2 = conn.prepareStatement("select password from Faculty where email = (?)");
+         stmt2.setString(1,email);
+      
+         ResultSet info = stmt2.executeQuery();
+         while(info.next()) {
+         
+         // 6) Retrieve resultset data
+         
+            password = info.getString(1);
+           
+           
+         
+         }//end of while loop
+      
+      }// end of try
+      catch(SQLException sqle)
+      {
+         System.out.println("Error message is --> "+sqle+"\n");
+         sqle.printStackTrace();
+      }//end of catch
+      
+      return password;
+   
+   }
+      // Arsh --  Faculty name shows up when logging in
+   public String FacultyName(String email){
+      String firstName = "";
+      try {
+         PreparedStatement stmt2;
+      
+         stmt2 = conn.prepareStatement("select firstName from Faculty where email = (?)");
+         stmt2.setString(1,email);
+      
+         ResultSet info = stmt2.executeQuery();
+         while(info.next()) {
+         
+         // 6) Retrieve resultset data
+         
+            firstName = info.getString(1);
+           
+           
+         
+         }//end of while loop
+      
+      }// end of try
+      catch(SQLException sqle)
+      {
+         System.out.println("Error message is --> "+sqle+"\n");
+         sqle.printStackTrace();
+      }//end of catch
+      
+      return firstName;
+   
+   }
+   // Arsh --  student name shows up when logging in
+   public String StudentName(String email){
+      String firstName = "";
+      try {
+         PreparedStatement stmt2;
+      
+         stmt2 = conn.prepareStatement("select firstName from Student where email = (?)");
+         stmt2.setString(1,email);
+      
+         ResultSet info = stmt2.executeQuery();
+         while(info.next()) {
+         
+         // 6) Retrieve resultset data
+         
+            firstName = info.getString(1);
+           
+           
+         
+         }//end of while loop
+      
+      }// end of try
+      catch(SQLException sqle)
+      {
+         System.out.println("Error message is --> "+sqle+"\n");
+         sqle.printStackTrace();
+      }//end of catch
+      
+      return firstName;
+   
+   }
+   
+   
+
+   
+    // Arsh --  Student login
+   public String StudentLogin(String email){
+      String password = "";
+      try {
+         PreparedStatement stmt2;
+      
+         stmt2 = conn.prepareStatement("select password from Student where email = (?)");
+         stmt2.setString(1,email);
+      
+         ResultSet info = stmt2.executeQuery();
+         while(info.next()) {
+         
+         // 6) Retrieve resultset data
+         
+            password = info.getString(1);
+           
+           
+         
+         }//end of while loop
+      
+      }// end of try
+      catch(SQLException sqle)
+      {
+         System.out.println("Error message is --> "+sqle+"\n");
+         sqle.printStackTrace();
+      }//end of catch
+      
+      return password;
+   
+   }
+
+
+
+
+
 
 
    //Yunhao
@@ -48,7 +179,7 @@ public class projectSQLDatabase{
    }
    
    
-   
+       
    //Arsh -- Student's can search based on the faculty's id
    public void searchFacultySkills(int id){
       try {
@@ -76,11 +207,11 @@ public class projectSQLDatabase{
          System.out.println("Error message is --> "+sqle+"\n");
          sqle.printStackTrace();
       }//end of catch
-
+   
    }
    
    //Arsh -- Student's can see professor's names and see their id's so they can search.
-    public void seeFaculty(){
+   public void seeFaculty(){
       try {
          PreparedStatement stmt2;
          stmt2 = conn.prepareStatement("select faculty_id,firstName,lastName from faculty;");
@@ -103,7 +234,7 @@ public class projectSQLDatabase{
          System.out.println("Error message is --> "+sqle+"\n");
          sqle.printStackTrace();
       }//end of catch
-
+   
    }
 
 
@@ -117,6 +248,10 @@ public class projectSQLDatabase{
    public int add(){
       return 3;
    } // End of getResultSet
+   
+   
+   
+   
    
    //Josh
    public int updateFaculty(String fName, String lName, String email, String officeNum, int id) {
@@ -169,6 +304,9 @@ public class projectSQLDatabase{
       }
       return returnInt;
    }// end of method to update abstract
+   
+   
+   
 
    //CLOSE
    public void close(){
@@ -186,4 +324,4 @@ public class projectSQLDatabase{
       
    }//end of method close
   
-} // End of Class   DataLayer2.java
+} // End of Class
