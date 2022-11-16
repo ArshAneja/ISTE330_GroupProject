@@ -55,25 +55,58 @@ public class projectSQLDatabase{
       return 3;
          } // End of getResultSet
    
-   //Arsh
-   public int update() {
-   return 3;
-        }// end of method to add a student
+   //Josh
+   public int updateFaculty(String fName, String lName, String email, String officeNum, int id) {
+      int returnInt = -1;
+      try{
+         String updateString = "UPDATE Faculty SET firstname=?, lastname=?, email=?, officeNum=? WHERE faculty_id = ?";
+         PreparedStatement ps = conn.prepareStatement(updateString);
+         ps.setString(1, fName);
+         ps.setString(2, lName);
+         ps.setString(3, email);
+         ps.setString(4, officeNum);
+         ps.setInt(5, id);
+         returnInt = ps.executeUpdate();
+      }catch(Exception e){
+         System.out.println("Update Faculty Failed: "+e);
+      }
+      return returnInt;
+   }// end of method to update a faculty
+   
+   //Josh
+   public int updateStudent(String fName, String lName, String email, String grade, int id) {
+      int returnInt = -1;
+      try{
+         String updateString = "UPDATE Student SET firstname=?, lastname=?, email=?, grade=? WHERE student_id = ?";
+         PreparedStatement ps = conn.prepareStatement(updateString);
+         ps.setString(1, fName);
+         ps.setString(2, lName);
+         ps.setString(3, email);
+         ps.setString(4, grade);
+         ps.setInt(5, id);
+         returnInt = ps.executeUpdate();
+      }catch(Exception e){
+         System.out.println("Update Student Failed: "+e);
+      }
+      return returnInt;
+   }// end of method to update student
+   
+   //Josh
+   public int updateAbstract(String name, String summary, int id) {
+      int returnInt = -1;
+      try{
+         String updateString = "UPDATE Student SET abstractName=?, abstractSummary=? WHERE abstract_id = ?";
+         PreparedStatement ps = conn.prepareStatement(updateString);
+         ps.setString(1, name);
+         ps.setString(2, summary);
+         ps.setInt(3, id);
+         returnInt = ps.executeUpdate();
+      }catch(Exception e){
+         System.out.println("Update Student Failed: "+e);
+      }
+      return returnInt;
+   }// end of method to update abstract
 
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-
-
-
- 
    //CLOSE
    public void close(){
       try {

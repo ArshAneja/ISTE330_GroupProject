@@ -68,12 +68,12 @@ create table Student(
     firstName VARCHAR(255) NOT NULL,
     email VARCHAR(255) NOT NULL,
     grade VARCHAR(255),
-    PASSWORD VARCHAR(255),
+    password VARCHAR(255),
     PRIMARY KEY (student_id)
 )ENGINE=InnoDB AUTO_INCREMENT=10000;
 
 Create table Student_Password(
-     student_id INT NOT NULL,
+	student_id INT NOT NULL,
     encrypted_password VARCHAR(255) NOT NULL,
     PRIMARY KEY (student_id),
     FOREIGN KEY (student_id) REFERENCES Student(student_id)
@@ -85,8 +85,6 @@ create table Student_Skill(
 	FOREIGN KEY (student_id) REFERENCES Student(student_id),
 	FOREIGN KEY (skill_id) REFERENCES Skill(skill_id)
 );
-
-
 
 INSERT Faculty VALUES(1,"John","David","dj@rit.edu","Gold","dj");
 INSERT Faculty VALUES(2,"Molly","Bonnie","mb@rit.edu","gol-234","password");
@@ -129,7 +127,6 @@ INSERT Student_Skill VALUES(10000,10000);
 INSERT Student_Skill VALUES(10000,10001);
 
 SELECT * FROM Skill;
-
 
 SELECT Faculty.firstName, Skill.skill_name FROM Skill
 INNER JOIN Faculty_Skill ON Faculty_Skill.skill_id = Skill.skill_id
