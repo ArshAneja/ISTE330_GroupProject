@@ -7,81 +7,81 @@ DROP DATABASE IF EXISTS academicSkills;
 CREATE DATABASE academicSkills;
 USE academicSkills;
 
-Drop table if exists Faculty_Password;
+DROP TABLE IF EXISTS Faculty_Password;
 DROP TABLE IF EXISTS Faculty_Skill;
-drop table if exists Abstract_Skill;
+DROP TABLE IF EXISTS Abstract_Skill;
 DROP TABLE IF EXISTS Skill;
 DROP TABLE IF EXISTS abstract;
-Drop table if exists Faculty;
-Drop table if exists Student_Skill;
-Drop table if exists Student_Password;
-Drop table if exists Student; 
+DROP TABLE IF EXISTS Faculty;
+DROP TABLE IF EXISTS Student_Skill;
+DROP TABLE IF EXISTS Student_Password;
+DROP TABLE IF EXISTS Student; 
 
 CREATE TABLE Faculty (
-    faculty_id int AUTO_INCREMENT,
-    lastName varchar(255),
-    firstName varchar(255),
-    email varchar(255),
-    officeNumber varchar(255),
-    password varchar(255),
-    primary key (faculty_id)
+    faculty_id INT AUTO_INCREMENT,
+    lastName VARCHAR(255),
+    firstName VARCHAR(255),
+    email VARCHAR(255),
+    officeNumber VARCHAR(255),
+    password VARCHAR(255),
+    PRIMARY KEY (faculty_id)
 );
 create table Skill(
-	skill_id int not null auto_increment,
-    skill_name varchar(255),
+	skill_id INT NOT NULL auto_increment,
+    skill_name VARCHAR(255),
 	key(skill_id)
 );
 
 Create table Faculty_Password(
-faculty_id int NOT NULL,
-    encrypted_password varchar(255) NOT NULL,
+faculty_id INT NOT NULL,
+    encrypted_password VARCHAR(255) NOT NULL,
     PRIMARY KEY (faculty_id),
     FOREIGN KEY (faculty_id) REFERENCES Faculty(faculty_id)
 );
 
 create table Faculty_Skill(
-	faculty_id int not null,
-    skill_id int not null,
+	faculty_id INT NOT NULL,
+    skill_id INT NOT NULL,
 	FOREIGN KEY (faculty_id) REFERENCES Faculty(faculty_id),
 	FOREIGN KEY (skill_id) REFERENCES Skill(skill_id)
 );
 
-Create table abstract(
-	abstract_id int not null,
-    faculty_id int not null,
-    abstractName varchar(255),
-    abstractSummary varchar(255),
+Create table Abstract(
+	abstract_id INT NOT NULL,
+    faculty_id INT NOT NULL,
+    abstractName VARCHAR(255),
+    abstractSummary VARCHAR(255),
     PRIMARY KEY (abstract_id),
     FOREIGN KEY (faculty_id) REFERENCES Faculty(faculty_id)
 );
 
 create table Abstract_Skill(
-	abstract_id int not null,
-    skill_id int not null,
+	abstract_id INT NOT NULL,
+    skill_id INT NOT NULL,
 	FOREIGN KEY (abstract_id) REFERENCES abstract(abstract_id),
 	FOREIGN KEY (skill_id) REFERENCES Skill(skill_id)
 );
 
 create table Student(
-    student_id int not null AUTO_INCREMENT,
-    lastName varchar(255) not null,
-    firstName varchar(255) not null,
-    email varchar(255) not null,
-    grade varchar(255),
-    password varchar(255),
-    primary key (student_id)
+    student_id INT NOT NULL AUTO_INCREMENT,
+    lastName VARCHAR(255) NOT NULL,
+    firstName VARCHAR(255) NOT NULL,
+    email VARCHAR(255) NOT NULL,
+    grade VARCHAR(255),
+    PASSWORD VARCHAR(255),
+    PRIMARY KEY (student_id)
 )ENGINE=InnoDB AUTO_INCREMENT=10000;
 
 Create table Student_Password(
-     student_id int NOT NULL,
-    encrypted_password varchar(255) NOT NULL,
+     student_id INT NOT NULL,
+    encrypted_password VARCHAR(255) NOT NULL,
     PRIMARY KEY (student_id),
     FOREIGN KEY (student_id) REFERENCES Student(student_id)
 );
 
 create table Student_Skill(
-	student_id int not null,
-    skill_id int not null auto_increment,
+	student_id INT NOT NULL,
+    skill_id INT NOT NULL AUTO_INCREMENT,
 	FOREIGN KEY (student_id) REFERENCES Student(student_id),
 	FOREIGN KEY (skill_id) REFERENCES Skill(skill_id)
 );
