@@ -23,7 +23,7 @@ public class ProjectPresentation {
              //JTextField tfPassword = new JTextField("");
       JTextField tfPassword = new JPasswordField("");
       JLabel lblDatabase    = new JLabel("Database ->");
-      JTextField tfDatabase = new JTextField("");
+      JTextField tfDatabase = new JTextField("academicSkills");
      
       Inputbox.add(lblUser);
       Inputbox.add(tfUser);
@@ -69,12 +69,10 @@ public class ProjectPresentation {
       dl.connect(userName,password,database);  //Call DataLayer
       System.out.println("You have connected to the database!");
       String fs = ""; //faculty or student checker
-      System.out.println("Are you a (f)aculty or (s)tudent?");
-      fs = GetInput.readLine();
-      if(fs.equals("y")){
-         
-      }
-
+      
+      dl.seeFaculty();
+      dl.searchFacultySkills(1);
+      
       
       
       
