@@ -1,4 +1,4 @@
--- Zaher Asad, Joshua Arquette, Arsh Aneja, Yunhao Dong
+-- Zaher Asad, Joshua Arquette, Arsh Aneja
 -- Group Project - Search Procedure
 -- 11/13/22
 -- Professor Habermas Jim
@@ -16,6 +16,11 @@ BEGIN
     SELECT * FROM Faculty;
     SELECT * FROM Skill;
     SELECT * FROM Student;
+
+    SELECT CONCAT(Faculty.firstName, " ", Faculty.lastName) AS "Faculty Name", Skill.skill_name FROM Skill
+        INNER JOIN Faculty_Skill ON Faculty_Skill.skill_id = Skill.skill_id
+        INNER JOIN Faculty ON Faculty_Skill.faculty_id = Faculty.faculty_id;
+
 END //
 
 
