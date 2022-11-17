@@ -124,7 +124,7 @@ public class ProjectPresentation {
             
             //menu when logged in
             while(true){
-               System.out.println("\n1. Update your information\n2. Update your abstract\n3. Add an abstract \n4. Add a skill\n5. Delete abstract \n6. Logout \nYour option: ");
+               System.out.println("\n1. Update your information\n2. Update your abstract\n3. Add an abstract \n4. Add a skill\n5. Delete abstract \n6. See other faculty's skills \n7. Logout \nYour option: ");
                op = GetInput.readLineInt();
                
                if(op==1){
@@ -191,9 +191,21 @@ public class ProjectPresentation {
                      continue;
                   }
                }
-
+               if(op==6){
+                  System.out.print("Enter a skill 1: ");
+                  one = GetInput.readLine();
+                  System.out.print("Enter a skill 2: ");
+                  two = GetInput.readLine();
+                  System.out.print("Enter a skill 3: ");
+                  three = GetInput.readLine();
+                  
+                  dl.searchSkills(one);
+                  dl.searchSkills(two);
+                  dl.searchSkills(three);
                
-               if(op==6){ // Exit
+               }
+               
+               if(op==7){ // Exit
                   System.exit(0);
                }
             }
