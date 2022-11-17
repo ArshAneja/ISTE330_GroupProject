@@ -1,0 +1,10 @@
+Step 1: Run the SQL File. The database is called academicSkills.
+
+Step 2: Run the ppresentation file and input creditials. The default password is "password"
+
+Step 3: It will ask if you are a student or faculty:
+
+If you choose student: The email will be: 'mm@rit.edu' and the password is 'Spiderman12'
+If you choose faculty: The email will be: 'dj@rit.edu' and the password is 'dj'
+
+
