@@ -9,7 +9,7 @@ public class ProjectSQLDatabase{
 
    final String DEFAULT_DRIVER = "com.mysql.cj.jdbc.Driver";
 
-   public projectSQLDatabase(){
+   public ProjectSQLDatabase(){
    }//end of constructor
 
    
@@ -87,8 +87,6 @@ public class ProjectSQLDatabase{
          // 6) Retrieve resultset data
          
             firstName = info.getString(1);
-           
-           
          
          }//end of while loop
       
@@ -117,8 +115,6 @@ public class ProjectSQLDatabase{
          // 6) Retrieve resultset data
          
             firstName = info.getString(1);
-           
-           
          
          }//end of while loop
       
@@ -132,6 +128,71 @@ public class ProjectSQLDatabase{
       return firstName;
    
    }
+   
+   // Arsh --  get Student id, so I can search skills
+   public int StudentID(String email){
+      int id = 0;
+      try {
+         PreparedStatement stmt2;
+      
+         stmt2 = conn.prepareStatement("select student_id from Student where email = (?)");
+         stmt2.setString(1,email);
+      
+         ResultSet info = stmt2.executeQuery();
+         while(info.next()) {
+         
+         // 6) Retrieve resultset data
+         
+            id = info.getInt(1);
+         
+         }//end of while loop
+      
+      }// end of try
+      catch(SQLException sqle)
+      {
+         System.out.println("Error message is --> "+sqle+"\n");
+         sqle.printStackTrace();
+      }//end of catch
+      
+      return id;
+   
+   }
+   // Arsh --  get faculty id, update stuff
+   public int FacultyID(String email){
+      int id = 0;
+      try {
+         PreparedStatement stmt2;
+      
+         stmt2 = conn.prepareStatement("select faculty_id from Faculty where email = (?)");
+         stmt2.setString(1,email);
+      
+         ResultSet info = stmt2.executeQuery();
+         while(info.next()) {
+         
+         // 6) Retrieve resultset data
+         
+            id = info.getInt(1);
+         
+         }//end of while loop
+      
+      }// end of try
+      catch(SQLException sqle)
+      {
+         System.out.println("Error message is --> "+sqle+"\n");
+         sqle.printStackTrace();
+      }//end of catch
+      
+      return id;
+   
+   }
+   
+   
+   
+   
+   
+   
+   
+   
    
    
 
@@ -173,10 +234,6 @@ public class ProjectSQLDatabase{
 
 
 
-   //Yunhao
-   public int search(){
-      return 3;
-   }
    
    
        
@@ -236,7 +293,8 @@ public class ProjectSQLDatabase{
       }//end of catch
    
    }
-
+   
+   
    //Zaher
    public int addAbstract(int abstract_id, int faculty_id, String name, String summary){
       int rows = 0;
@@ -255,7 +313,7 @@ public class ProjectSQLDatabase{
        catch(SQLException sqle){
          System.out.println("SQL ERROR");
          System.out.println("INSERT FAILED!!!!");
-         System.out.println("ERROR MESSAGE IS -> "+sqle);\
+         System.out.println("ERROR MESSAGE IS -> "+sqle);
          sqle.printStackTrace();
          return(0);
       }
@@ -267,9 +325,9 @@ public class ProjectSQLDatabase{
       }
       return (rows);
    } // End of getResultSet
-
+   
    //Zaher
-   public int addSkills(int faculty_id, int skill_id) {
+   public int addFaculty_Skill(int faculty_id, int skill_id) {
       int rows = 0;
       try {
          sql = "INSERT INTO faculty_skills VALUES (?,?)";
@@ -283,7 +341,7 @@ public class ProjectSQLDatabase{
       catch(SQLException sqle){
          System.out.println("SQL ERROR");
          System.out.println("INSERT FAILED!!!!");
-         System.out.println("ERROR MESSAGE IS -> "+sqle);\
+         System.out.println("ERROR MESSAGE IS -> "+sqle);
          sqle.printStackTrace();
          return(0);
       }
@@ -295,8 +353,37 @@ public class ProjectSQLDatabase{
       }
       return (rows);
    }
+   
+      //add to skill table for faculty
+      public int addSkill(int skill_id, String skill_name) {
+      int rows = 0;
+      try {
+         sql = "INSERT INTO Skill VALUES (?,?)";
+         PreparedStatement stmt = conn.prepareStatement(sql);
+         stmt.setInt(1, skill_id);
+         stmt.setString(2, skill_name);
+         System.out.println("Command to be executed: " + stmt);
+         rows = stmt.executeUpdate();
+         System.out.println("-----INSERT finished-----");
+      }
+      catch(SQLException sqle){
+         System.out.println("SQL ERROR");
+         System.out.println("INSERT FAILED!!!!");
+         System.out.println("ERROR MESSAGE IS -> "+sqle);
+         sqle.printStackTrace();
+         return(0);
+      }
+      catch(Exception e) {
+         System.out.println("Error occured in addSkills method");
+         System.out.println("ERROR MESSAGE is -> "+e);
+         e.printStackTrace();
+         return(0);
+      }
+      return (rows);
+   }
+   
 
-   //Zaher
+      //Zaher
    public int deleteAbstract(int abstract_id){
       int result = 0;
       try {
@@ -312,8 +399,41 @@ public class ProjectSQLDatabase{
          return 3;
       }
    }
+
+
+
    
+      //Arsh -- Student's can search based on the faculty's skills
+   public void searchSkills(String skill){
+      try {
+         PreparedStatement stmt2;
+      
+         stmt2 = conn.prepareStatement("select Faculty.firstName, Faculty.lastName, Faculty.officeNumber, Skill.skill_name  from Skill inner join Faculty_Skill on Faculty_Skill.skill_id = Skill.skill_id inner join Faculty on Faculty_Skill.faculty_id = Faculty.faculty_id where skill_name = (?);");
+         stmt2.setString(1,skill);
+      
+         ResultSet info = stmt2.executeQuery();
+         while(info.next()) {
+         
+         // 6) Retrieve resultset data
+         
+            String fname = info.getString(1);
+            String lname = info.getString(2);
+            String office = info.getString(3);
+            String skilly = info.getString(4);
+           
+            System.out.print("\nNAME\t\t\tOFFICE NUMBER\t\tSKILL SEARCHED FOR");
+            System.out.print("\n"+fname+" " + lname+ "\t\t\t" + office + "\t\t\t"+ skilly + "\n");
+         
+         }//end of while loop
+      
+      }// end of try
+      catch(SQLException sqle)
+      {
+         System.out.println("Error message is --> "+sqle+"\n");
+         sqle.printStackTrace();
+      }//end of catch
    
+   }
    
    
    
@@ -321,7 +441,7 @@ public class ProjectSQLDatabase{
    public int updateFaculty(String fName, String lName, String email, String officeNum, int id) {
       int returnInt = -1;
       try{
-         String updateString = "UPDATE Faculty SET firstname=?, lastname=?, email=?, officeNum=? WHERE faculty_id = ?";
+         String updateString = "UPDATE Faculty SET firstname=?, lastname=?, email=?, officeNumber=? WHERE faculty_id = ?";
          PreparedStatement ps = conn.prepareStatement(updateString);
          ps.setString(1, fName);
          ps.setString(2, lName);
@@ -329,12 +449,15 @@ public class ProjectSQLDatabase{
          ps.setString(4, officeNum);
          ps.setInt(5, id);
          returnInt = ps.executeUpdate();
+         System.out.print("Updated faculty!");
       }catch(Exception e){
          System.out.println("Update Faculty Failed: "+e);
       }
       return returnInt;
    }// end of method to update a faculty
    
+  
+  
    //Josh
    public int updateStudent(String fName, String lName, String email, String grade, int id) {
       int returnInt = -1;
@@ -347,31 +470,32 @@ public class ProjectSQLDatabase{
          ps.setString(4, grade);
          ps.setInt(5, id);
          returnInt = ps.executeUpdate();
+         System.out.print("Update Complete!");
       }catch(Exception e){
          System.out.println("Update Student Failed: "+e);
       }
       return returnInt;
    }// end of method to update student
    
+   
+   
    //Josh
    public int updateAbstract(String name, String summary, int id) {
       int returnInt = -1;
       try{
-         String updateString = "UPDATE Student SET abstractName=?, abstractSummary=? WHERE abstract_id = ?";
+         String updateString = "UPDATE Abstract SET abstractName=?, abstractSummary=? WHERE abstract_id = ?";
          PreparedStatement ps = conn.prepareStatement(updateString);
          ps.setString(1, name);
          ps.setString(2, summary);
          ps.setInt(3, id);
          returnInt = ps.executeUpdate();
+         System.out.print("Updated abstract");
       }catch(Exception e){
          System.out.println("Update Abstract Failed: "+e);
       }
       return returnInt;
    }// end of method to update abstract
    
-   
-   
-
    //CLOSE
    public void close(){
       try {
