@@ -1,6 +1,6 @@
 Step 1: Run the SQL File. The database is called academicSkills.
 
-Step 2: Run the ppresentation file and input creditials. The default password is "password"
+Step 2: Run the ppresentation file and input creditials. The default password is "student"
 
 Step 3: It will ask if you are a student or faculty:
 
