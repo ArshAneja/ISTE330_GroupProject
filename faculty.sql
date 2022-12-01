@@ -18,18 +18,18 @@ Drop table if exists Student_Password;
 Drop table if exists Student; 
 
 CREATE TABLE Faculty (
-    faculty_id int AUTO_INCREMENT,
+    faculty_id INT AUTO_INCREMENT,
     lastName varchar(255),
     firstName varchar(255),
     email varchar(255),
     officeNumber varchar(255),
     password varchar(255),
-    primary key (faculty_id)
+    PRIMARY KEY(faculty_id)
 );
 create table Skill(
-	skill_id int not null auto_increment,
-    skill_name varchar(255),
-	key(skill_id)
+    skill_id INT NOT NULL AUTO_INCREMENT,
+    skill_name VARCHAR(255),
+    PRIMARY KEY(skill_id)
 );
 
 Create table Faculty_Password(
@@ -41,25 +41,27 @@ faculty_id int NOT NULL,
 
 create table Faculty_Skill(
 	faculty_id int not null,
-    skill_id int not null,
+        skill_id int not null,
+	PRIMARY KEY(faculty_id, skill_id),
 	FOREIGN KEY (faculty_id) REFERENCES Faculty(faculty_id),
 	FOREIGN KEY (skill_id) REFERENCES Skill(skill_id)
 );
 
 Create table abstract(
-	abstract_id int not null,
+    abstract_id int not null,
     faculty_id int not null,
     abstractName varchar(255),
     abstractSummary varchar(255),
-     KEY (abstract_id),
+    PRIMARY KEY (abstract_id),
     FOREIGN KEY (faculty_id) REFERENCES Faculty(faculty_id)
 );
 
 create table Abstract_Skill(
-	abstract_id int not null,
+    abstract_id int not null,
     skill_id int not null,
-	FOREIGN KEY (abstract_id) REFERENCES abstract(abstract_id),
-	FOREIGN KEY (skill_id) REFERENCES Skill(skill_id)
+    PRIMARY KEY(abstract_id, skill_id),
+    FOREIGN KEY (abstract_id) REFERENCES abstract(abstract_id),
+    FOREIGN KEY (skill_id) REFERENCES Skill(skill_id)
 );
 
 create table Student(
@@ -69,21 +71,22 @@ create table Student(
     email varchar(255) not null,
     grade varchar(255),
     password varchar(255),
-    primary key (student_id)
+    PRIMARY KEY(student_id)
 )ENGINE=InnoDB AUTO_INCREMENT=10000;
 
 Create table Student_Password(
-     student_id int NOT NULL,
+    student_id int NOT NULL,
     encrypted_password varchar(255) NOT NULL,
     PRIMARY KEY (student_id),
     FOREIGN KEY (student_id) REFERENCES Student(student_id)
 );
 
 create table Student_Skill(
-	student_id int not null,
+    student_id int not null,
     skill_id int not null auto_increment,
-	FOREIGN KEY (student_id) REFERENCES Student(student_id),
-	FOREIGN KEY (skill_id) REFERENCES Skill(skill_id)
+    PRIMARY KEY(student_id,skill_id),
+    FOREIGN KEY (student_id) REFERENCES Student(student_id),
+    FOREIGN KEY (skill_id) REFERENCES Skill(skill_id)
 );
 
 
