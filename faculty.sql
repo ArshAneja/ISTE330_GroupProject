@@ -88,8 +88,8 @@ create table Student_Skill(
 
 
 
-insert Faculty values(1,"John","David","dj@rit.edu","Gold","dj");
-insert Faculty values(2,"Molly","Bonnie","mb@rit.edu","gol-234","password");
+insert Faculty values(1,"John","David","dj@rit.edu","Gold","10099878e72cf7e0ee4aa0cbce77aa8d5e6825f3");
+insert Faculty values(2,"Molly","Bonnie","mb@rit.edu","gol-234","5baa61e4c9b93f3f0682250b6cf8331b7ee68fd8");
 insert Faculty_Password values(1,'dj');
 insert Faculty_Password values(2,'password');
 
@@ -131,3 +131,25 @@ insert Skill values(10001,"C++");
 
 insert Student_Skill values(10000,10000);
 insert Student_Skill values(10000,10001);
+
+select * from Skill;
+
+
+select Faculty.firstName, Skill.skill_name from Skill
+inner join Faculty_Skill on Faculty_Skill.skill_id = Skill.skill_id
+inner join Faculty on Faculty_Skill.faculty_id = Faculty.faculty_id;
+
+
+select password from Faculty where email = "dj@rit.edu";
+select * from Faculty;
+
+select student_id from student where email = "mm@rit.edu";
+select firstName from Faculty where email = "dj@rit.edu";
+ 
+ select Faculty.firstName, Faculty.lastName, Faculty.officeNumber, Skill.skill_name  from Skill inner join Faculty_Skill on Faculty_Skill.skill_id = Skill.skill_id inner join Faculty on Faculty_Skill.faculty_id = Faculty.faculty_id where skill_name = "php";
+
+select skill_id, skill_name, abstractName from Skill
+inner join abstract_skill using (skill_id)
+inner join Abstract using(abstract_id);
+ 
+ select * from Faculty;
