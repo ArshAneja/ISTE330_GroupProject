@@ -26,9 +26,9 @@ public class ProjectPresentation {
          e.printStackTrace();
       }// end of catch
    
-      System.out.println( "The sha1 of \""+ value + "\" is:");
-      System.out.println("--->" + sha1 );
-      System.out.println();
+      //System.out.println( "The sha1 of \""+ value + "\" is:");
+      //System.out.println("--->" + sha1 );
+      //System.out.println();
       return sha1;
    }//end of encrypt
    
@@ -103,7 +103,7 @@ public class ProjectPresentation {
       String two = "";
       String three = "";
    
-      System.out.print("Are you a (f)aculty or (s)tudent? (f or s) ");
+      System.out.print("Are you a (f)aculty, (s)tudent, (n)ew user, or  a (g)uest? ");
       fs = GetInput.readLine();
       
       
@@ -116,9 +116,11 @@ public class ProjectPresentation {
          emailCheck = GetInput.readLine();
          System.out.print("Please enter your password: ");
          passwordCheck = GetInput.readLine();
+         //Encrypt the password
+         String encrypted = encrypt(passwordCheck);
          
          //Checks database and login in.
-         if (passwordCheck.equals(dl.FacultyLogin(emailCheck))){
+         if (encrypted.equals(dl.FacultyLogin(emailCheck))){
             
             System.out.print("\nHello, "+ dl.FacultyName(emailCheck));
             
@@ -291,6 +293,32 @@ public class ProjectPresentation {
          else{
             System.out.print("\nSomething went wrong, try again!");
          }
+      }
+      if(fs.equals("g")){
+         System.out.print("\nHello Guest!\nPlease select an option:\n1. Search for student skills\n2. Search faculty based n skills\n");
+         op = GetInput.readLineInt();
+         if(op == 1){
+            System.out.print("Enter a skill 1: ");
+            one = GetInput.readLine();
+            System.out.print("Enter a skill 2: ");
+            two = GetInput.readLine();
+            System.out.print("Enter a skill 3: ");
+            three = GetInput.readLine();
+            
+         }
+         if(op == 2){
+            System.out.print("Enter a skill 1: ");
+            one = GetInput.readLine();
+            System.out.print("Enter a skill 2: ");
+            two = GetInput.readLine();
+            System.out.print("Enter a skill 3: ");
+            three = GetInput.readLine();
+                  
+            dl.searchSkills(one);
+            dl.searchSkills(two);
+            dl.searchSkills(three);
+         }
+
       }
       
       
