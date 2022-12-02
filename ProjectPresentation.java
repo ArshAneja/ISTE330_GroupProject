@@ -37,14 +37,13 @@ public class ProjectPresentation {
 
    public ProjectPresentation(){
       
-      
+      System.out.println("Connecting to the database . . .");
       
       
       JPanel Inputbox = new JPanel(new GridLayout(3,2));
       JLabel lblUser     = new JLabel("Username -> ");
       JLabel lblPassword = new JLabel("Password -> ");
       JTextField tfUser     = new JTextField("root");
-             //JTextField tfPassword = new JTextField("");
       JTextField tfPassword = new JPasswordField("");
       JLabel lblDatabase    = new JLabel("Database ->");
       JTextField tfDatabase = new JTextField("academicSkills");
