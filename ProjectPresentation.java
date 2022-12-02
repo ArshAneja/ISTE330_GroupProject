@@ -43,7 +43,7 @@ public class ProjectPresentation {
       
       
       
-      System.out.println("Connecting to the database . . .");
+      System.out.print("Connecting to the database . . .");
       JPanel Inputbox = new JPanel(new GridLayout(3,2));
       JLabel lblUser     = new JLabel("Username -> ");
       JLabel lblPassword = new JLabel("Password -> ");
@@ -241,7 +241,7 @@ public class ProjectPresentation {
             
             //menu
             while(true){
-               System.out.println("\n1. Update your information?\n2. Search for a faculty and see his skills\n3. Search faculty based on skills\n4. Logout\n\nYour option: ");
+               System.out.println("\n1. Update your information?\n2. Search for a faculty and see his skills\n3. Search faculty based on skills\n4. Add a skill\n5. Logout\n\nYour option: ");
                op = GetInput.readLineInt();
                
                if(op == 1){
@@ -282,8 +282,18 @@ public class ProjectPresentation {
                   dl.searchSkills(two);
                   dl.searchSkills(three);
                }
-            
-               if(op==4){ // Exit
+               if (op==4){
+                  int id = dl.StudentID(emailCheck);
+                  dl.seeSkillsTable();
+                  System.out.print("Enter the number that you would like to add: ");
+                  int skill = GetInput.readInt();
+                  dl.addStudentSkill(id,skill);
+               }
+               
+               
+               
+               
+               if(op==5){ // Exit
                   System.exit(0);
                }
             }
@@ -360,8 +370,8 @@ public class ProjectPresentation {
             String dpas = GetInput.readLine();
             String encrypted = encrypt(dpas);
             dl.addFaculty(last,first,email,office,encrypted);
-
-
+         
+         
          }
          if (fs.equals("s")){
             System.out.print("\n\nPLEASE REMEMBER YOUR EMAIL AND PASSWORD, IT IS USED TO LOGIN!!!\n\n");
@@ -378,10 +388,8 @@ public class ProjectPresentation {
             String dpas = GetInput.readLine();
             
             dl.addStudent(last,first,email,dpas);
-
-         }
          
-      
+         }
       
       }
       
