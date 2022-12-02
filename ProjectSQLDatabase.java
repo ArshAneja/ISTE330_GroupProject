@@ -1,362 +1,556 @@
 import java.sql.*;
-import javax.swing.*;
-import java.awt.*;
-import java.math.BigInteger;
-import java.security.MessageDigest;
 
-public class ProjectPresentation {
+public class ProjectSQLDatabase{
+   private Connection conn;
+   private ResultSet rs;
+   private Statement stmt;
+   private String sql;
+   private int col;
 
-   ProjectSQLDatabase dl = new ProjectSQLDatabase();
-   //private int columns;
-   //private int rows;
+   final String DEFAULT_DRIVER = "com.mysql.cj.jdbc.Driver";
 
-   public static Font myFontForOutput = new Font("Courier", Font.BOLD, 20);
+   public ProjectSQLDatabase(){
+   }//end of constructor
+
+   
+   public boolean connect(String user, String password, String database){
+      conn = null;
+     
+      String url = "jdbc:mysql://localhost/" + database;
+   
+      try{
+         Class.forName(DEFAULT_DRIVER);
+         System.out.println("CLASSPATH is set correctly!");
+         
+         conn = DriverManager.getConnection(url, user, password);
+         System.out.println("\nCreated Connection!\n");
+      }// end of try block
+      catch(ClassNotFoundException cnfe){
+         System.out.println("ERROR, CAN NOT CONNECT!!");
+         System.out.println("Class");
+         System.out.println("ERROR MESSAGE-> "+cnfe);
+         System.exit(0);
+      }// end of the first catch block
+      catch(SQLException sqle){
+         System.out.println("ERROR SQLExcepiton in connect()");
+         System.out.println("ERROR MESSAGE -> "+sqle);
+         // sqle.printStackTrace();
+         System.exit(0);
+      }//end of  Second catch block
+   
+      return (conn!=null);
+   } // End of connect method
    
    
-   //Encrypt password
-   public static String encrypt(String secret){//Endcypt password
-      String sha1 = "";
-      String value = new String(secret);
+   // Arsh --  Faculty login
+   public String FacultyLogin(String email){
+      String password = "";
       try {
-         MessageDigest digest = MessageDigest.getInstance("SHA-1");
-         digest.reset();
-         digest.update(value.getBytes("utf8"));
-         sha1 = String.format("%040x", new BigInteger(1, digest.digest()));
-      } catch (Exception e){
+         PreparedStatement stmt2;
+      
+         stmt2 = conn.prepareStatement("select password from Faculty where email = (?)");
+         stmt2.setString(1,email);
+      
+         ResultSet info = stmt2.executeQuery();
+         while(info.next()) {
+         
+         // 6) Retrieve resultset data
+         
+            password = info.getString(1);
+           
+           
+         
+         }//end of while loop
+      
+      }// end of try
+      catch(SQLException sqle)
+      {
+         System.out.println("Error message is --> "+sqle+"\n");
+         sqle.printStackTrace();
+      }//end of catch
+      
+      return password;
+   
+   }
+      // Arsh --  Faculty name shows up when logging in
+   public String FacultyName(String email){
+      String firstName = "";
+      try {
+         PreparedStatement stmt2;
+      
+         stmt2 = conn.prepareStatement("select firstName from Faculty where email = (?)");
+         stmt2.setString(1,email);
+      
+         ResultSet info = stmt2.executeQuery();
+         while(info.next()) {
+         
+         // 6) Retrieve resultset data
+         
+            firstName = info.getString(1);
+         
+         }//end of while loop
+      
+      }// end of try
+      catch(SQLException sqle)
+      {
+         System.out.println("Error message is --> "+sqle+"\n");
+         sqle.printStackTrace();
+      }//end of catch
+      
+      return firstName;
+   
+   }
+   // Arsh --  student name shows up when logging in
+   public String StudentName(String email){
+      String firstName = "";
+      try {
+         PreparedStatement stmt2;
+      
+         stmt2 = conn.prepareStatement("select firstName from Student where email = (?)");
+         stmt2.setString(1,email);
+      
+         ResultSet info = stmt2.executeQuery();
+         while(info.next()) {
+         
+         // 6) Retrieve resultset data
+         
+            firstName = info.getString(1);
+         
+         }//end of while loop
+      
+      }// end of try
+      catch(SQLException sqle)
+      {
+         System.out.println("Error message is --> "+sqle+"\n");
+         sqle.printStackTrace();
+      }//end of catch
+      
+      return firstName;
+   
+   }
+   
+   // Arsh --  get Student id, so I can search skills
+   public int StudentID(String email){
+      int id = 0;
+      try {
+         PreparedStatement stmt2;
+      
+         stmt2 = conn.prepareStatement("select student_id from Student where email = (?)");
+         stmt2.setString(1,email);
+      
+         ResultSet info = stmt2.executeQuery();
+         while(info.next()) {
+         
+         // 6) Retrieve resultset data
+         
+            id = info.getInt(1);
+         
+         }//end of while loop
+      
+      }// end of try
+      catch(SQLException sqle)
+      {
+         System.out.println("Error message is --> "+sqle+"\n");
+         sqle.printStackTrace();
+      }//end of catch
+      
+      return id;
+   
+   }
+   // Arsh --  get faculty id, update stuff
+   public int FacultyID(String email){
+      int id = 0;
+      try {
+         PreparedStatement stmt2;
+      
+         stmt2 = conn.prepareStatement("select faculty_id from Faculty where email = (?)");
+         stmt2.setString(1,email);
+      
+         ResultSet info = stmt2.executeQuery();
+         while(info.next()) {
+         
+         // 6) Retrieve resultset data
+         
+            id = info.getInt(1);
+         
+         }//end of while loop
+      
+      }// end of try
+      catch(SQLException sqle)
+      {
+         System.out.println("Error message is --> "+sqle+"\n");
+         sqle.printStackTrace();
+      }//end of catch
+      
+      return id;
+   
+   }
+   
+   public void seeSkillsTable(){
+      System.out.print("\n\n1.Python\n2. Java\n3. SQL\n4. Ruby\n5. php\n6. C++\n7. Bash\n8. JavaScript\n");
+   }
+   
+    // Arsh --  Student login
+   public String StudentLogin(String email){
+      String password = "";
+      try {
+         PreparedStatement stmt2;
+      
+         stmt2 = conn.prepareStatement("select password from Student where email = (?)");
+         stmt2.setString(1,email);
+      
+         ResultSet info = stmt2.executeQuery();
+         while(info.next()) {
+         
+         // 6) Retrieve resultset data
+         
+            password = info.getString(1);
+           
+           
+         
+         }//end of while loop
+      
+      }// end of try
+      catch(SQLException sqle)
+      {
+         System.out.println("Error message is --> "+sqle+"\n");
+         sqle.printStackTrace();
+      }//end of catch
+      
+      return password;
+   
+   }
+
+
+
+
+
+
+
+   
+   
+       
+   //Arsh -- Student's can search based on the faculty's id
+   public void searchFacultySkills(int id){
+      try {
+         PreparedStatement stmt2;
+      
+         stmt2 = conn.prepareStatement("SELECT Faculty.firstName, group_concat(Skill.skill_name separator' | ') AS 'Skill' From Skill inner join Faculty_Skill on Faculty_Skill.skill_id = Skill.skill_id inner join Faculty on Faculty_Skill.faculty_id = Faculty.faculty_id where Faculty.faculty_id = (?);");
+         stmt2.setInt(1,id);
+      
+         ResultSet info = stmt2.executeQuery();
+         while(info.next()) {
+         
+         // 6) Retrieve resultset data
+         
+            String name = info.getString(1);
+            String skill = info.getString(2);
+           
+            System.out.print("\nNAME\t\t\tSKILLS" );
+            System.out.print("\n"+name+"\t\t\t" + skill+ "\n");
+         
+         }//end of while loop
+      
+      }// end of try
+      catch(SQLException sqle)
+      {
+         System.out.println("Error message is --> "+sqle+"\n");
+         sqle.printStackTrace();
+      }//end of catch
+   
+   }
+   
+   //Arsh -- Student's can see professor's names and see their id's so they can search.
+   public void seeFaculty(){
+      try {
+         PreparedStatement stmt2;
+         stmt2 = conn.prepareStatement("select faculty_id,firstName,lastName from faculty;");
+         ResultSet info = stmt2.executeQuery();
+         while(info.next()) {
+         
+         // 6) Retrieve resultset data
+         
+            String id = info.getString(1);
+            String fname = info.getString(2);
+            String lname = info.getString(3);
+           
+            System.out.print("ID: "+ id + "\t\t" + fname + " " + lname+ "\n");
+         
+         }//end of while loop
+      
+      }// end of try
+      catch(SQLException sqle)
+      {
+         System.out.println("Error message is --> "+sqle+"\n");
+         sqle.printStackTrace();
+      }//end of catch
+   
+   }
+   
+   
+   //Zaher
+   public int addAbstract(int abstract_id, int faculty_id, String name, String summary){
+      int rows = 0;
+      try {
+         String sql = "INSERT INTO Abstract VALUES (?, ?, ?, ?)";
+
+         PreparedStatement stmt = conn.prepareStatement(sql);
+         stmt.setInt(1, abstract_id);
+         stmt.setInt(2, faculty_id);
+         stmt.setString(3, name);
+         stmt.setString(4, summary);
+         System.out.println("Command to be executed: " + stmt);
+         rows = stmt.executeUpdate();
+         System.out.println("-----INSERT finished-----");
+      }
+       catch(SQLException sqle){
+         System.out.println("SQL ERROR");
+         System.out.println("INSERT FAILED!!!!");
+         System.out.println("ERROR MESSAGE IS -> "+sqle);
+         sqle.printStackTrace();
+         return(0);
+      }
+      catch(Exception e) {
+         System.out.println("Error occured in addAbstract method");
+         System.out.println("ERROR MESSAGE is -> "+e);
          e.printStackTrace();
+         return(0);
+      }
+      return (rows);
+   } // End of getResultSet
+   
+   //Zaher
+   public int addFaculty_Skill(int faculty_id, int skill_id) {
+      int rows = 0;
+      try {
+         sql = "INSERT INTO faculty_skills VALUES (?,?)";
+         PreparedStatement stmt = conn.prepareStatement(sql);
+         stmt.setInt(1, faculty_id);
+         stmt.setInt(2, skill_id);
+         System.out.println("Command to be executed: " + stmt);
+         rows = stmt.executeUpdate();
+         System.out.println("-----INSERT finished-----");
+      }
+      catch(SQLException sqle){
+         System.out.println("SQL ERROR");
+         System.out.println("INSERT FAILED!!!!");
+         System.out.println("ERROR MESSAGE IS -> "+sqle);
+         sqle.printStackTrace();
+         return(0);
+      }
+      catch(Exception e) {
+         System.out.println("Error occured in addSkills method");
+         System.out.println("ERROR MESSAGE is -> "+e);
+         e.printStackTrace();
+         return(0);
+      }
+      return (rows);
+   }
+   
+      //add to skill table for faculty
+      public int addSkill(int skill_id, String skill_name) {
+      int rows = 0;
+      try {
+         sql = "insert faculty_skill values(?,?);";
+         PreparedStatement stmt = conn.prepareStatement(sql);
+         stmt.setInt(1, skill_id);
+         stmt.setString(2, skill_name);
+         System.out.println("Command to be executed: " + stmt);
+         rows = stmt.executeUpdate();
+         System.out.println("-----INSERT finished-----");
+      }
+      catch(SQLException sqle){
+         System.out.println("SQL ERROR");
+         System.out.println("INSERT FAILED!!!!");
+         System.out.println("ERROR MESSAGE IS -> "+sqle);
+         sqle.printStackTrace();
+         return(0);
+      }
+      catch(Exception e) {
+         System.out.println("Error occured in addSkills method");
+         System.out.println("ERROR MESSAGE is -> "+e);
+         e.printStackTrace();
+         return(0);
+      }
+      return (rows);
+   }
+   
+
+      //Zaher
+   public int deleteAbstract(int abstract_id){
+      int result = 0;
+      try {
+         sql = "DELETE FROM Abstract WHERE abstract_id=?";
+         
+         PreparedStatement ps = conn.prepareStatement(sql);
+         ps.setInt(1, abstract_id);
+         
+         result = ps.executeUpdate();
+         return (result);
+      }
+      catch (SQLException se) {
+         return 3;
+      }
+   }
+
+
+
+   
+      //Arsh -- Student's can search based on the faculty's skills
+   public void searchSkills(String skill){
+      try {
+         PreparedStatement stmt2;
+      
+         stmt2 = conn.prepareStatement("select Faculty.firstName, Faculty.lastName, Faculty.officeNumber, Skill.skill_name  from Skill inner join Faculty_Skill on Faculty_Skill.skill_id = Skill.skill_id inner join Faculty on Faculty_Skill.faculty_id = Faculty.faculty_id where skill_name = (?);");
+         stmt2.setString(1,skill);
+      
+         ResultSet info = stmt2.executeQuery();
+         while(info.next()) {
+         
+         // 6) Retrieve resultset data
+         
+            String fname = info.getString(1);
+            String lname = info.getString(2);
+            String office = info.getString(3);
+            String skilly = info.getString(4);
+           
+            System.out.print("\nNAME\t\t\tOFFICE NUMBER\t\tSKILL SEARCHED FOR");
+            System.out.print("\n"+fname+" " + lname+ "\t\t\t" + office + "\t\t\t"+ skilly + "\n");
+         
+         }//end of while loop
+      
+      }// end of try
+      catch(SQLException sqle)
+      {
+         System.out.println("Error message is --> "+sqle+"\n");
+         sqle.printStackTrace();
+      }//end of catch
+   
+   }
+   
+   public void searchStudentSkills(String skill){
+      try {
+         PreparedStatement stmt2;
+      
+         stmt2 = conn.prepareStatement("select Student.firstName, Student.lastName, Skill.skill_name from Skill inner join Student_Skill on Student_Skill.skill_id = Skill.skill_id inner join Student on Student_Skill.student_id = Student.student_id where skill_name = (?);");
+         stmt2.setString(1,skill);
+      
+         ResultSet info = stmt2.executeQuery();
+         while(info.next()) {
+         
+         // 6) Retrieve resultset data
+         
+            String fname = info.getString(1);
+            String lname = info.getString(2);
+            String skilly = info.getString(3);
+      
+           
+            System.out.print("\nNAME\t\t\tSKILL SEARCHED FOR");
+            System.out.print("\n"+fname+" " + lname+ "\t\t\t" + skilly + "\n");
+         
+         }//end of while loop
+      
+      }// end of try
+      catch(SQLException sqle)
+      {
+         System.out.println("Error message is --> "+sqle+"\n");
+         sqle.printStackTrace();
+      }//end of catch
+   }
+   
+   
+   
+   //Josh
+   public int updateFaculty(String fName, String lName, String email, String officeNum, int id) {
+      int returnInt = -1;
+      try{
+         String updateString = "UPDATE Faculty SET firstname=?, lastname=?, email=?, officeNumber=? WHERE faculty_id = ?";
+         PreparedStatement ps = conn.prepareStatement(updateString);
+         ps.setString(1, fName);
+         ps.setString(2, lName);
+         ps.setString(3, email);
+         ps.setString(4, officeNum);
+         ps.setInt(5, id);
+         returnInt = ps.executeUpdate();
+         System.out.print("Updated faculty!");
+      }catch(Exception e){
+         System.out.println("Update Faculty Failed: "+e);
+      }
+      return returnInt;
+   }// end of method to update a faculty
+   
+  
+  
+   //Josh
+   public int updateStudent(String fName, String lName, String email, String grade, int id) {
+      int returnInt = -1;
+      try{
+         String updateString = "UPDATE Student SET firstname=?, lastname=?, email=?, grade=? WHERE student_id = ?";
+         PreparedStatement ps = conn.prepareStatement(updateString);
+         ps.setString(1, fName);
+         ps.setString(2, lName);
+         ps.setString(3, email);
+         ps.setString(4, grade);
+         ps.setInt(5, id);
+         returnInt = ps.executeUpdate();
+         System.out.print("Update Complete!");
+      }catch(Exception e){
+         System.out.println("Update Student Failed: "+e);
+      }
+      return returnInt;
+   }// end of method to update student
+   
+   
+   
+   //Josh
+   public int updateAbstract(String name, String summary, int id) {
+      int returnInt = -1;
+      try{
+         String updateString = "UPDATE Abstract SET abstractName=?, abstractSummary=? WHERE abstract_id = ?";
+         PreparedStatement ps = conn.prepareStatement(updateString);
+         ps.setString(1, name);
+         ps.setString(2, summary);
+         ps.setInt(3, id);
+         returnInt = ps.executeUpdate();
+         System.out.print("Updated abstract");
+      }catch(Exception e){
+         System.out.println("Update Abstract Failed: "+e);
+      }
+      return returnInt;
+   }// end of method to update abstract
+   
+  
+   
+   
+   
+   
+   
+   //CLOSE
+   public void close(){
+      try {
+         rs.close();
+         stmt.close();
+         conn.close();
+         
+      }
+      catch(SQLException sqle){
+         System.out.println("ERROR IN METHOD close()");
+         System.out.println("ERROR MESSAGE -> "+sqle);
+         
       }// end of catch
-   
-      //System.out.println( "The sha1 of \""+ value + "\" is:");
-      //System.out.println("--->" + sha1 );
-      //System.out.println();
-      return sha1;
-   }//end of encrypt
-   
+      
+   }//end of method close
   
 
 
-   public ProjectPresentation(){
-      
-      
-      
-      
-      JPanel Inputbox = new JPanel(new GridLayout(3,2));
-      JLabel lblUser     = new JLabel("Username -> ");
-      JLabel lblPassword = new JLabel("Password -> ");
-      JTextField tfUser     = new JTextField("root");
-             //JTextField tfPassword = new JTextField("");
-      JTextField tfPassword = new JPasswordField("");
-      JLabel lblDatabase    = new JLabel("Database ->");
-      JTextField tfDatabase = new JTextField("academicSkills");
-     
-      Inputbox.add(lblUser);
-      Inputbox.add(tfUser);
-      Inputbox.add(lblPassword);
-      Inputbox.add(tfPassword);
-      Inputbox.add(lblDatabase);
-      Inputbox.add(tfDatabase);
-     
-      lblUser.setFont(myFontForOutput);
-      tfUser.setFont(myFontForOutput);
-      tfUser.setForeground(Color.BLUE);
-      lblPassword.setFont(myFontForOutput);
-      tfPassword.setFont(myFontForOutput);
-      tfPassword.setForeground(Color.BLUE);
-      lblDatabase.setFont(myFontForOutput);
-      tfDatabase.setFont(myFontForOutput);
-      tfDatabase.setForeground(Color.BLUE);
-     
-     
-      JOptionPane.showMessageDialog(null, Inputbox,
-          "Input    Default password is \"student\"", JOptionPane.QUESTION_MESSAGE);
-     
-     
-      String userName = tfUser.getText();
-      String database = tfDatabase.getText();  
-   
-          
-          
-      String password = new String();
-      String passwordInput = new String();
-              
-      passwordInput = tfPassword.getText();
-              
-      // set the default password to   "student"
-      if (passwordInput.equalsIgnoreCase("")) {
-         password = "student";                  //CHANGE TO STUDENT
-      } 
-      else 
-      {
-         password = passwordInput;
-      }
-      
-      dl.connect(userName,password,database);  //Call DataLayer
-      System.out.println("You have connected to the database!");
-      String fs = ""; //faculty or student checker
-      String emailCheck = ""; // Email checker
-      String passwordCheck = ""; //Password checker
-      String Faculty = "Faculty"; //Used for database.
-      String Student = "Student"; // Used for database.
-      int op; // Faculty options
-      int fid; //Faculty id
-      String one = "";
-      String two = "";
-      String three = "";
-   
-      System.out.print("Are you a (f)aculty, (s)tudent, (n)ew user, or  a (g)uest? ");
-      fs = GetInput.readLine();
-      
-      
-      
-      
-      //Faculty
-      if(fs.equals("f")){
-         //Gets login credentials
-         System.out.print("Please enter your email: ");
-         emailCheck = GetInput.readLine();
-         System.out.print("Please enter your password: ");
-         passwordCheck = GetInput.readLine();
-         //Encrypt the password
-         String encrypted = encrypt(passwordCheck);
-         
-         //Checks database and login in.
-         if (encrypted.equals(dl.FacultyLogin(emailCheck))){
-            
-            System.out.print("\nHello, "+ dl.FacultyName(emailCheck));
-            
-            //menu when logged in
-            while(true){
-               System.out.println("\n1. Update your information\n2. Update your abstract\n3. Add an abstract \n4. Add a skill\n5. Delete abstract \n6. See other faculty's skills \n7. Logout \nYour option: ");
-               op = GetInput.readLineInt();
-               
-               if(op==1){
-                  String fname = "";
-                  String lname = "";
-                  String email = "";
-                  String office = "";
-                  int id = dl.FacultyID(emailCheck);
-                  System.out.print("Please enter your first name:");
-                  fname = GetInput.readLine();
-                  System.out.print("Please enter your last name:");
-                  lname = GetInput.readLine();
-                  System.out.print("Please enter your email:");
-                  email = GetInput.readLine();
-                  System.out.print("Please enter your office Location:");
-                  office = GetInput.readLine();
-                  dl.updateFaculty(fname,lname,email,office,id);
-               }
-               
-               if(op==2){
-                  String name = "";
-                  String summary = "";
-                  int id = dl.FacultyID(emailCheck);
-                  System.out.print("Please enter the name of the abstract:");
-                  name = GetInput.readLine();
-                  System.out.print("Please enter the summary:");
-                  summary = GetInput.readLine();
-                  dl.updateAbstract(name,summary,id);
-               
-               }
-               
-               if(op==3){
-                  int aid = dl.FacultyID(emailCheck);
-                  int id = dl.FacultyID(emailCheck);
-                  String name = "";
-                  String summary = "";
-                  System.out.print("Please enter the name of the abstract:");
-                  name = GetInput.readLine();
-                  System.out.print("Please enter the summary:");
-                  summary = GetInput.readLine();
-                  dl.addAbstract(aid,id,name,summary);
-                  
-               
-               }
-               if(op==4){
-                  int id = dl.FacultyID(emailCheck); 
-                  String skill = "";
-                  System.out.print("Please enter the number that you would like to add: ");
-                  dl.seeSkillsTable();
-                  skill = GetInput.readLine();
-                  dl.addSkill(id,skill);
-               
-               }
-               
-               if(op==5){
-                  String yn = "";
-                  int id = dl.FacultyID(emailCheck);
-                  System.out.print("Are you sure you want to delete all of your abstracts? (y or n)");
-                  yn = GetInput.readLine();
-                  if(yn.equals("y")){
-                     dl.deleteAbstract(id);
-                     
-                  }
-                  else{
-                     continue;
-                  }
-               }
-               if(op==6){
-                  System.out.print("Enter a skill 1 that you want to search for: ");
-                  one = GetInput.readLine();
-                  System.out.print("Enter a skill 2 that you want to search for: ");
-                  two = GetInput.readLine();
-                  System.out.print("Enter a skill 3 that you want to search for: ");
-                  three = GetInput.readLine();
-                  
-                  dl.searchSkills(one);
-                  dl.searchSkills(two);
-                  dl.searchSkills(three);
-               
-               }
-               
-               if(op==7){ // Exit
-                  System.exit(0);
-               }
-            }
-         }
-         else{
-            System.out.print("\nSomething went wrong, try again!");
-         }
-      }
-      
-      
-      
-      
-      
-      
-      //Student
-      if(fs.equals("s")){
-         //Gets login credentials
-         System.out.print("Please enter your email: ");
-         emailCheck = GetInput.readLine();
-         System.out.print("Please enter your password: ");
-         passwordCheck = GetInput.readLine();
-         
-         //Checks database and login in.
-         if (passwordCheck.equals(dl.StudentLogin(emailCheck))){
-            System.out.print("\nHello, "+ dl.StudentName(emailCheck));
-            
-            //menu
-            while(true){
-               System.out.println("\n1. Update your information?\n2. Search for a faculty and see his skills\n3. Search faculty based on skills\n4. Logout\n\nYour option: ");
-               op = GetInput.readLineInt();
-               
-               if(op == 1){
-                  String fname = "";
-                  String lname = "";
-                  String email = "";
-                  String gpa = "";
-                  int id = dl.StudentID(emailCheck);
-                  System.out.print("Please enter your first name:");
-                  fname = GetInput.readLine();
-                  System.out.print("Please enter your last name:");
-                  lname = GetInput.readLine();
-                  System.out.print("Please enter your email:");
-                  email = GetInput.readLine();
-                  System.out.print("Please enter your gpa:");
-                  gpa = GetInput.readLine();
-                  dl.updateStudent(fname,lname,email,gpa,id);
-               
-               }
-            
-               if(op ==2){
-                  //Shows faculty in the database
-                  dl.seeFaculty();
-                  System.out.print("Please enter the professor's ID: ");
-                  fid = GetInput.readLineInt();
-                  //shows his skills
-                  dl.searchFacultySkills(fid);
-               }
-               if(op==3){
-                  System.out.print("Enter a skill 1 that you want to search for: ");
-                  one = GetInput.readLine();
-                  System.out.print("Enter a skill 2 that you want to search for: ");
-                  two = GetInput.readLine();
-                  System.out.print("Enter a skill 3 that you want to search for: ");
-                  three = GetInput.readLine();
-                  
-                  dl.searchSkills(one);
-                  dl.searchSkills(two);
-                  dl.searchSkills(three);
-               }
-            
-               if(op==4){ // Exit
-                  System.exit(0);
-               }
-            }
-         
-            
-            
-            
-            
-            
-            
-         }
-         else{
-            System.out.print("\nSomething went wrong, try again!");
-         }
-      }
-      if(fs.equals("g")){
-         System.out.print("\nHello Guest!\n");
-         while(true){
-            System.out.print("\nPlease select an option:\n1. Search for student skills\n2. Search faculty based on skills\n3.Logout\n");
-            op = GetInput.readLineInt();
-            if(op == 1){
-               System.out.print("Enter a skill 1 that you want to search for: ");
-               one = GetInput.readLine();
-               System.out.print("Enter a skill 2 that you want to search for: ");
-               two = GetInput.readLine();
-               System.out.print("Enter a skill 3 that you want to search for: ");
-               three = GetInput.readLine();
-            
-               dl.searchStudentSkills(one);
-               dl.searchStudentSkills(two);
-               dl.searchStudentSkills(three);
-            
-            }
-            if(op == 2){
-               System.out.print("Enter a skill 1 that you want to search for: ");
-               one = GetInput.readLine();
-               System.out.print("Enter a skill 2 that you want to search for: ");
-               two = GetInput.readLine();
-               System.out.print("Enter a skill 3 that you want to search for: ");
-               three = GetInput.readLine();
-                  
-               dl.searchSkills(one);
-               dl.searchSkills(two);
-               dl.searchSkills(three);
-            }
-            if(op == 3){
-               System.out.print("\n\nLogging out!\n");
-               System.exit(0);
-               
-            }
-         }
-      
-      }
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-                       
-      
-   } // End of Constructor
 
-   public static void main(String [] args){
-         
-   
-      java.util.Date today = new java.util.Date();
-      System.out.println("Program ran @ " + today + "\nProject \n");
-   
-      new ProjectPresentation();  // Create a new object. An Instantiation
-   } // End of main method
+
+
+
+
+
 } // End of Class
+
+
 
 
