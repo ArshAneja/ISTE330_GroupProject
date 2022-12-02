@@ -97,20 +97,28 @@ insert Faculty_Password values(1,'dj');
 insert Faculty_Password values(2,'password');
 
 
-insert Skill values(1,"php");
-insert Skill values(1,"java");
 insert Skill values(1,"python");
+insert Skill values(2,"java");
+insert Skill values(3,"sql");
+insert Skill values(4,"ruby");
+insert Skill values(5,"php");
+insert Skill values(6,"c++");
+insert Skill values(7,"bash");
+insert Skill values(8,"javascript");
+insert Skill values(9,"html");
 
-insert Skill values(2,"html");
-insert Skill values(2,"css");
-insert Skill values(2,"ruby");
 
 insert faculty_skill values(1,1);
+insert faculty_skill values(1,3);
+insert faculty_skill values(1,5);
+
 insert faculty_skill values(2,2);
+insert faculty_skill values(2,3);
+insert faculty_skill values(2,8);
+
 
  insert abstract values(1,1,"Python is cool","A summary of python being very cool.");
  insert abstract values(2,2,"Java is super fun!","Java can be very complex, but what if I say theres any easier way to learn?");
-  insert abstract values(2,2,"Java is super fun!","Java can be very complex, but what if I say theres any easier way to learn?");
 
  
  
@@ -123,36 +131,14 @@ insert Student(lastName,firstName, email, password) values("Morales","Miles","mm
 insert Student_Password values(10000,"ILovemyMom123");
 insert Student_Password values(10001,"Spiderman12");
 
-insert Skill values(10000,"php");
-insert Skill values(10000,"java");
-insert Skill values(10000,"python");
+insert Student_Skill values(10000,1);
+insert Student_Skill values(10000,3);
+insert Student_Skill values(10000,5);
+
+insert Student_Skill values(10001,6);
+insert Student_Skill values(10001,2);
+insert Student_Skill values(10001,4);
 
 
-insert Skill values(10001,"bash");
-insert Skill values(10001,"css");
-insert Skill values(10001,"C++");
+ select student_id, Skill.skill_name from Student_Skill inner join Skill using (skill_id);
 
-insert Student_Skill values(10000,10000);
-insert Student_Skill values(10000,10001);
-
-select * from Skill;
-
-
-select Faculty.firstName, Skill.skill_name from Skill
-inner join Faculty_Skill on Faculty_Skill.skill_id = Skill.skill_id
-inner join Faculty on Faculty_Skill.faculty_id = Faculty.faculty_id;
-
-
-select password from Faculty where email = "dj@rit.edu";
-select * from Faculty;
-
-select student_id from student where email = "mm@rit.edu";
-select firstName from Faculty where email = "dj@rit.edu";
- 
- select Faculty.firstName, Faculty.lastName, Faculty.officeNumber, Skill.skill_name  from Skill inner join Faculty_Skill on Faculty_Skill.skill_id = Skill.skill_id inner join Faculty on Faculty_Skill.faculty_id = Faculty.faculty_id where skill_name = "php";
-
-select skill_id, skill_name, abstractName from Skill
-inner join abstract_skill using (skill_id)
-inner join Abstract using(abstract_id);
- 
- select * from Faculty;
