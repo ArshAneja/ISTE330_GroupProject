@@ -364,11 +364,21 @@ public class ProjectPresentation {
 
          }
          if (fs.equals("s")){
-            System.out.print("Test");
+            System.out.print("\n\nPLEASE REMEMBER YOUR EMAIL AND PASSWORD, IT IS USED TO LOGIN!!!\n\n");
+            System.out.print("Enter your first name: ");
+            String first = GetInput.readLine();
+            
+            System.out.print("Enter your last name: ");
+            String last = GetInput.readLine();
          
+            System.out.print("Enter your email: ");
+            String email = GetInput.readLine();
          
-         
-         
+            System.out.print("Enter your password: ");
+            String dpas = GetInput.readLine();
+            
+            dl.addStudent(last,first,email,dpas);
+
          }
          
       
