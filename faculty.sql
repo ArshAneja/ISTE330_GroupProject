@@ -7,6 +7,7 @@ DROP DATABASE IF EXISTS academicSkills;
 CREATE DATABASE academicSkills;
 USE academicSkills;
 
+
 Drop table if exists Faculty_Password;
 DROP TABLE IF EXISTS Faculty_Skill;
 drop table if exists Abstract_Skill;
@@ -86,16 +87,18 @@ create table Student_Skill(
     skill_id int not null auto_increment,
     PRIMARY KEY(student_id,skill_id),
     FOREIGN KEY (student_id) REFERENCES Student(student_id),
-    FOREIGN KEY (skill_id) REFERENCES Skill(skill_id)
+    FOREIGN KEY (skill_id) REFERENCES Skill(skill_id) ON DELETE CASCADE
+            ON UPDATE CASCADE
 );
 
 
 
 insert Faculty values(1,"John","David","dj@rit.edu","Gold","10099878e72cf7e0ee4aa0cbce77aa8d5e6825f3");
 insert Faculty values(2,"Molly","Bonnie","mb@rit.edu","gol-234","5baa61e4c9b93f3f0682250b6cf8331b7ee68fd8");
+insert into Faculty (lastName,firstName,email,officeNumber,password) values("Singh","Jessy","asa1712@rit.edu","mol-121","123");
 insert Faculty_Password values(1,'dj');
 insert Faculty_Password values(2,'password');
-
+select * from Faculty;
 
 insert Skill values(1,"python");
 insert Skill values(2,"java");
@@ -126,8 +129,8 @@ insert faculty_skill values(2,8);
  insert abstract_skill values(2,2);
  
 insert Student(lastName,firstName, email, password) values("Johnson","Jamal","jj@rit.edu","ILovemyMom123");
-insert Student(lastName,firstName, email, password) values("Morales","Miles","mm@rit.edu","Spiderman12");
 
+insert Student(lastName,firstName, email, password) values("Morales","Miles","mm@rit.edu","Spiderman12");
 insert Student_Password values(10000,"ILovemyMom123");
 insert Student_Password values(10001,"Spiderman12");
 
@@ -139,6 +142,6 @@ insert Student_Skill values(10001,6);
 insert Student_Skill values(10001,2);
 insert Student_Skill values(10001,4);
 
-
  select student_id, Skill.skill_name from Student_Skill inner join Skill using (skill_id);
-
+ select Faculty.firstName, Faculty.lastName, Faculty.officeNumber, Skill.skill_name  from Skill inner join Faculty_Skill on Faculty_Skill.skill_id = Skill.skill_id inner join Faculty on Faculty_Skill.faculty_id = Faculty.faculty_id where skill_name = "php";
+ select Student.firstName, Student.lastName, Skill.skill_name from Skill inner join Student_Skill on Student_Skill.skill_id = Skill.skill_id inner join Student on Student_Skill.student_id = Student.student_id where skill_name = "php";
