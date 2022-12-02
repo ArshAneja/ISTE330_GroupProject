@@ -186,16 +186,9 @@ public class ProjectSQLDatabase{
    
    }
    
-   
-   
-   
-   
-   
-   
-   
-   
-   
-
+   public void seeSkillsTable(){
+      System.out.print("\n\n1.Python\n2. Java\n3. SQL\n4. Ruby\n5. php\n6. C++\n7. Bash\n8. JavaScript\n");
+   }
    
     // Arsh --  Student login
    public String StudentLogin(String email){
@@ -555,5 +548,8 @@ public class ProjectSQLDatabase{
 
 
 } // End of Class
+
+
+
 
 
