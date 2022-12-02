@@ -43,7 +43,7 @@ public class ProjectPresentation {
       
       
       
-      
+      System.out.println("Connecting to the database . . .");
       JPanel Inputbox = new JPanel(new GridLayout(3,2));
       JLabel lblUser     = new JLabel("Username -> ");
       JLabel lblPassword = new JLabel("Password -> ");
