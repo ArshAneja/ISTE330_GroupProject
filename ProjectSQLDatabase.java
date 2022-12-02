@@ -362,7 +362,39 @@ public class ProjectSQLDatabase{
          stmt.setString(3, email);
          stmt.setString(4, on);
          stmt.setString(5, pas);
-
+      
+         
+         System.out.println("Command to be executed: " + stmt);
+         rows = stmt.executeUpdate();
+         System.out.println("-----INSERT finished-----");
+      }
+      catch(SQLException sqle){
+         System.out.println("SQL ERROR");
+         System.out.println("INSERT FAILED!!!!");
+         System.out.println("ERROR MESSAGE IS -> "+sqle);
+         sqle.printStackTrace();
+         return(0);
+      }
+      catch(Exception e) {
+         System.out.println("Error occured in addSkills method");
+         System.out.println("ERROR MESSAGE is -> "+e);
+         e.printStackTrace();
+         return(0);
+      }
+      return (rows);
+   }
+   
+   
+   public int addStudent(String lName, String fName, String email, String pas) {
+      int rows = 0;
+      try {
+         sql = "insert Student(lastName,firstName, email, password) values(?,?,?,?);";
+         PreparedStatement stmt = conn.prepareStatement(sql);
+         stmt.setString(1, lName);
+         stmt.setString(2, fName);
+         stmt.setString(3, email);
+         stmt.setString(4, pas);
+      
          
          System.out.println("Command to be executed: " + stmt);
          rows = stmt.executeUpdate();
@@ -587,4 +619,6 @@ public class ProjectSQLDatabase{
 
 
 } // End of Class
+
+
 
