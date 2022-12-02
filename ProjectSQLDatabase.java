@@ -21,6 +21,8 @@ public class ProjectSQLDatabase{
       conn = null;
      
       String url = "jdbc:mysql://localhost/" + database;
+       url = url + "?serverTimezone=UTC"; // For Mac User
+
    
       try{
          Class.forName(DEFAULT_DRIVER);
