@@ -1,3 +1,7 @@
+//Arsh A, Zaher A, Yunghao B, Josh A
+//Project
+//12/2/2022
+
 import java.sql.*;
 
 public class ProjectSQLDatabase{
@@ -17,8 +21,6 @@ public class ProjectSQLDatabase{
       conn = null;
      
       String url = "jdbc:mysql://localhost/" + database;
-      url = url + "?serverTimezone=UTC"; // For Mac User
-      
    
       try{
          Class.forName(DEFAULT_DRIVER);
@@ -295,7 +297,7 @@ public class ProjectSQLDatabase{
       int rows = 0;
       try {
          String sql = "INSERT INTO Abstract VALUES (?, ?, ?, ?)";
-
+      
          PreparedStatement stmt = conn.prepareStatement(sql);
          stmt.setInt(1, abstract_id);
          stmt.setInt(2, faculty_id);
@@ -305,7 +307,7 @@ public class ProjectSQLDatabase{
          rows = stmt.executeUpdate();
          System.out.println("-----INSERT finished-----");
       }
-       catch(SQLException sqle){
+      catch(SQLException sqle){
          System.out.println("SQL ERROR");
          System.out.println("INSERT FAILED!!!!");
          System.out.println("ERROR MESSAGE IS -> "+sqle);
@@ -349,8 +351,41 @@ public class ProjectSQLDatabase{
       return (rows);
    }
    
+   
+   public int addFaculty(String lName, String fName, String email, String on, String pas) {
+      int rows = 0;
+      try {
+         sql = "insert into Faculty (lastName,firstName,email,officeNumber,password) values(?,?,?,?,?);";
+         PreparedStatement stmt = conn.prepareStatement(sql);
+         stmt.setString(1, lName);
+         stmt.setString(2, fName);
+         stmt.setString(3, email);
+         stmt.setString(4, on);
+         stmt.setString(5, pas);
+
+         
+         System.out.println("Command to be executed: " + stmt);
+         rows = stmt.executeUpdate();
+         System.out.println("-----INSERT finished-----");
+      }
+      catch(SQLException sqle){
+         System.out.println("SQL ERROR");
+         System.out.println("INSERT FAILED!!!!");
+         System.out.println("ERROR MESSAGE IS -> "+sqle);
+         sqle.printStackTrace();
+         return(0);
+      }
+      catch(Exception e) {
+         System.out.println("Error occured in addSkills method");
+         System.out.println("ERROR MESSAGE is -> "+e);
+         e.printStackTrace();
+         return(0);
+      }
+      return (rows);
+   }
+   
       //add to skill table for faculty
-      public int addSkill(int skill_id, String skill_name) {
+   public int addSkill(int skill_id, String skill_name) {
       int rows = 0;
       try {
          sql = "insert faculty_skill values(?,?);";
@@ -445,7 +480,7 @@ public class ProjectSQLDatabase{
             String fname = info.getString(1);
             String lname = info.getString(2);
             String skilly = info.getString(3);
-      
+         
            
             System.out.print("\nNAME\t\t\tSKILL SEARCHED FOR");
             System.out.print("\n"+fname+" " + lname+ "\t\t\t" + skilly + "\n");
@@ -552,7 +587,4 @@ public class ProjectSQLDatabase{
 
 
 } // End of Class
-
-
-
 
