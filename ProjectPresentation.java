@@ -1,3 +1,7 @@
+//Arsh A, Zaher A, Yunghao B, Josh A
+//Project
+//12/2/2022
+
 import java.sql.*;
 import javax.swing.*;
 import java.awt.*;
@@ -37,13 +41,14 @@ public class ProjectPresentation {
 
    public ProjectPresentation(){
       
-      System.out.println("Connecting to the database . . .");
+      
       
       
       JPanel Inputbox = new JPanel(new GridLayout(3,2));
       JLabel lblUser     = new JLabel("Username -> ");
       JLabel lblPassword = new JLabel("Password -> ");
       JTextField tfUser     = new JTextField("root");
+             //JTextField tfPassword = new JTextField("");
       JTextField tfPassword = new JPasswordField("");
       JLabel lblDatabase    = new JLabel("Database ->");
       JTextField tfDatabase = new JTextField("academicSkills");
@@ -330,6 +335,43 @@ public class ProjectPresentation {
                
             }
          }
+      
+      }
+      if(fs.equals("n")){
+      
+         System.out.print("Are you a (f)aculty or (s)tudent? ");
+         fs = GetInput.readLine();
+         if (fs.equals("f")){
+         
+            System.out.print("\n\nPLEASE REMEMBER YOUR EMAIL AND PASSWORD, IT IS USED TO LOGIN!!!\n\n");
+            System.out.print("Enter your first name: ");
+            String first = GetInput.readLine();
+            
+            System.out.print("Enter your last name: ");
+            String last = GetInput.readLine();
+         
+            System.out.print("Enter your email: ");
+            String email = GetInput.readLine();
+         
+            System.out.print("Enter your office number: ");
+            String office = GetInput.readLine();
+         
+            System.out.print("Enter your password: ");
+            String dpas = GetInput.readLine();
+            String encrypted = encrypt(dpas);
+            dl.addFaculty(last,first,email,office,encrypted);
+
+
+         }
+         if (fs.equals("s")){
+            System.out.print("Test");
+         
+         
+         
+         
+         }
+         
+      
       
       }
       
