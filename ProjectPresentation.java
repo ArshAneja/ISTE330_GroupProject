@@ -195,11 +195,11 @@ public class ProjectPresentation {
                   }
                }
                if(op==6){
-                  System.out.print("Enter a skill 1: ");
+                  System.out.print("Enter a skill 1 that you want to search for: ");
                   one = GetInput.readLine();
-                  System.out.print("Enter a skill 2: ");
+                  System.out.print("Enter a skill 2 that you want to search for: ");
                   two = GetInput.readLine();
-                  System.out.print("Enter a skill 3: ");
+                  System.out.print("Enter a skill 3 that you want to search for: ");
                   three = GetInput.readLine();
                   
                   dl.searchSkills(one);
@@ -267,11 +267,11 @@ public class ProjectPresentation {
                   dl.searchFacultySkills(fid);
                }
                if(op==3){
-                  System.out.print("Enter a skill 1: ");
+                  System.out.print("Enter a skill 1 that you want to search for: ");
                   one = GetInput.readLine();
-                  System.out.print("Enter a skill 2: ");
+                  System.out.print("Enter a skill 2 that you want to search for: ");
                   two = GetInput.readLine();
-                  System.out.print("Enter a skill 3: ");
+                  System.out.print("Enter a skill 3 that you want to search for: ");
                   three = GetInput.readLine();
                   
                   dl.searchSkills(one);
@@ -296,30 +296,42 @@ public class ProjectPresentation {
          }
       }
       if(fs.equals("g")){
-         System.out.print("\nHello Guest!\nPlease select an option:\n1. Search for student skills\n2. Search faculty based n skills\n");
-         op = GetInput.readLineInt();
-         if(op == 1){
-            System.out.print("Enter a skill 1: ");
-            one = GetInput.readLine();
-            System.out.print("Enter a skill 2: ");
-            two = GetInput.readLine();
-            System.out.print("Enter a skill 3: ");
-            three = GetInput.readLine();
+         System.out.print("\nHello Guest!\n");
+         while(true){
+            System.out.print("\nPlease select an option:\n1. Search for student skills\n2. Search faculty based on skills\n3.Logout\n");
+            op = GetInput.readLineInt();
+            if(op == 1){
+               System.out.print("Enter a skill 1 that you want to search for: ");
+               one = GetInput.readLine();
+               System.out.print("Enter a skill 2 that you want to search for: ");
+               two = GetInput.readLine();
+               System.out.print("Enter a skill 3 that you want to search for: ");
+               three = GetInput.readLine();
             
-         }
-         if(op == 2){
-            System.out.print("Enter a skill 1: ");
-            one = GetInput.readLine();
-            System.out.print("Enter a skill 2: ");
-            two = GetInput.readLine();
-            System.out.print("Enter a skill 3: ");
-            three = GetInput.readLine();
+               dl.searchStudentSkills(one);
+               dl.searchStudentSkills(two);
+               dl.searchStudentSkills(three);
+            
+            }
+            if(op == 2){
+               System.out.print("Enter a skill 1 that you want to search for: ");
+               one = GetInput.readLine();
+               System.out.print("Enter a skill 2 that you want to search for: ");
+               two = GetInput.readLine();
+               System.out.print("Enter a skill 3 that you want to search for: ");
+               three = GetInput.readLine();
                   
-            dl.searchSkills(one);
-            dl.searchSkills(two);
-            dl.searchSkills(three);
+               dl.searchSkills(one);
+               dl.searchSkills(two);
+               dl.searchSkills(three);
+            }
+            if(op == 3){
+               System.out.print("\n\nLogging out!\n");
+               System.exit(0);
+               
+            }
          }
-
+      
       }
       
       
