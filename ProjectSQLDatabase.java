@@ -358,7 +358,7 @@ public class ProjectSQLDatabase{
       public int addSkill(int skill_id, String skill_name) {
       int rows = 0;
       try {
-         sql = "INSERT INTO Skill VALUES (?,?)";
+         sql = "insert faculty_skill values(?,?);";
          PreparedStatement stmt = conn.prepareStatement(sql);
          stmt.setInt(1, skill_id);
          stmt.setString(2, skill_name);
@@ -435,6 +435,36 @@ public class ProjectSQLDatabase{
    
    }
    
+   public void searchStudentSkills(String skill){
+      try {
+         PreparedStatement stmt2;
+      
+         stmt2 = conn.prepareStatement("select Faculty.firstName, Faculty.lastName, Faculty.officeNumber, Skill.skill_name  from Skill inner join Faculty_Skill on Faculty_Skill.skill_id = Skill.skill_id inner join Faculty on Faculty_Skill.faculty_id = Faculty.faculty_id where skill_name = (?);");
+         stmt2.setString(1,skill);
+      
+         ResultSet info = stmt2.executeQuery();
+         while(info.next()) {
+         
+         // 6) Retrieve resultset data
+         
+            String fname = info.getString(1);
+            String lname = info.getString(2);
+            String office = info.getString(3);
+            String skilly = info.getString(4);
+           
+            System.out.print("\nNAME\t\t\tOFFICE NUMBER\t\tSKILL SEARCHED FOR");
+            System.out.print("\n"+fname+" " + lname+ "\t\t\t" + office + "\t\t\t"+ skilly + "\n");
+         
+         }//end of while loop
+      
+      }// end of try
+      catch(SQLException sqle)
+      {
+         System.out.println("Error message is --> "+sqle+"\n");
+         sqle.printStackTrace();
+      }//end of catch
+   }
+   
    
    
    //Josh
@@ -496,6 +526,10 @@ public class ProjectSQLDatabase{
       return returnInt;
    }// end of method to update abstract
    
+   
+   
+   
+   
    //CLOSE
    public void close(){
       try {
@@ -512,4 +546,14 @@ public class ProjectSQLDatabase{
       
    }//end of method close
   
+
+
+
+
+
+
+
+
 } // End of Class
+
+
