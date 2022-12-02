@@ -174,7 +174,8 @@ public class ProjectPresentation {
                if(op==4){
                   int id = dl.FacultyID(emailCheck); 
                   String skill = "";
-                  System.out.print("Please enter the skill that you would like to add: ");
+                  System.out.print("Please enter the number that you would like to add: ");
+                  dl.seeSkillsTable();
                   skill = GetInput.readLine();
                   dl.addSkill(id,skill);
                
