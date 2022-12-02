@@ -21,8 +21,8 @@ public class ProjectSQLDatabase{
       conn = null;
      
       String url = "jdbc:mysql://localhost/" + database;
-       url = url + "?serverTimezone=UTC"; // For Mac User
-
+      url = url + "?serverTimezone=UTC"; // For Mac User
+   
    
       try{
          Class.forName(DEFAULT_DRIVER);
@@ -446,6 +446,36 @@ public class ProjectSQLDatabase{
       return (rows);
    }
    
+   public int addStudentSkill(int id,int skill){
+      int rows = 0;
+      try {
+         sql = "insert student_skill values(?,?);";
+         PreparedStatement stmt = conn.prepareStatement(sql);
+         stmt.setInt(1, id);
+         stmt.setInt(2, skill);
+         System.out.println("Command to be executed: " + stmt);
+         rows = stmt.executeUpdate();
+         System.out.println("-----INSERT finished-----");
+      }
+      catch(SQLException sqle){
+         System.out.println("SQL ERROR");
+         System.out.println("INSERT FAILED!!!!");
+         System.out.println("ERROR MESSAGE IS -> "+sqle);
+         sqle.printStackTrace();
+         return(0);
+      }
+      catch(Exception e) {
+         System.out.println("Error occured in addSkills method");
+         System.out.println("ERROR MESSAGE is -> "+e);
+         e.printStackTrace();
+         return(0);
+      }
+      return (rows);
+   
+   
+   
+   }
+   
 
       //Zaher
    public int deleteAbstract(int abstract_id){
@@ -621,6 +651,8 @@ public class ProjectSQLDatabase{
 
 
 } // End of Class
+
+
 
 
 
